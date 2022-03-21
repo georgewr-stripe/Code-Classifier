@@ -3,8 +3,11 @@ import joblib
 from typing import Union, Iterable
 from datetime import datetime
 from functools import cache
+from os.path import dirname, abspath, join
 
 from model import preprocess  # required to load the model
+
+dir = dirname(abspath(__file__))
 
 
 class Classifier:
@@ -14,12 +17,14 @@ class Classifier:
         latest_model_date = sorted(
             [
                 datetime.strptime(x.split(".model.compressed")[0], date_fmt)
-                for x in os.listdir("data/models/")
-                if x.endswith(".model")
+                for x in os.listdir(join(dir, "models"))
+                if x.endswith(".model.compressed")
             ]
         )[-1]
-        self.model_path = "data/models/{}.model.compressed".format(
-            latest_model_date.strftime(date_fmt)
+        self.model_path = join(
+            dir,
+            "models",
+            "{}.model.compressed".format(latest_model_date.strftime(date_fmt)),
         )
         self.model = joblib.load(self.model_path)
 

@@ -3,11 +3,11 @@ import pandas as pd
 from tqdm import tqdm
 import joblib
 from sklearn.model_selection import train_test_split
-from model import model
+from app.model import model
 
 # Loading Data
 DATA_PATH = r"data/train/data.feather"
-MODEL_PATH = r"data/models/{}.model.compressed".format(
+MODEL_PATH = r"app/models/{}.model.compressed".format(
     datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 )
 
